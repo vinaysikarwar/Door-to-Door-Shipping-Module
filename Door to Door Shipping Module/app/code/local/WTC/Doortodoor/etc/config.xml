@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <WTC_Doortodoor>
+      <version>0.1.0</version>
+    </WTC_Doortodoor>
+  </modules>
+  <global>
+    <helpers>
+      <doortodoor>
+        <class>WTC_Doortodoor_Helper</class>
+      </doortodoor>
+    </helpers>
+	<resources>
+	  <doortodoor_setup>
+		<setup>
+		  <module>WTC_Doortodoor</module>
+		  <class>Mage_Eav_Model_Entity_Setup</class>
+		</setup>
+		<connection>
+		  <use>core_setup</use>
+		</connection>
+	  </doortodoor_setup>
+	  <doortodoor_write>
+		<connection>
+		  <use>core_write</use>
+		</connection>
+	  </doortodoor_write>
+	  <doortodoor_read>
+		<connection>
+		  <use>core_read</use>
+		</connection>
+	  </doortodoor_read>
+	</resources>
+	<models>
+        <doortodoor>
+            <class>WTC_Doortodoor_Model</class>
+        </doortodoor>
+    </models>
+	<events>
+	  <checkout_controller_onepage_save_shipping_method> <!-- identifier of the event we want to catch -->
+        <observers>
+          <checkout_controller_onepage_save_shipping_method_handler> <!-- identifier of the event handler -->
+            <type>model</type> <!-- class method call type; valid are model, object and singleton -->
+            <class>doortodoor/observer</class> <!-- observers class alias -->
+            <method>saveShippingMethod</method>  <!-- observer's method to be called -->
+            <args></args> <!-- additional arguments passed to observer -->
+          </checkout_controller_onepage_save_shipping_method_handler>
+        </observers>
+      </checkout_controller_onepage_save_shipping_method>
+    </events>
+  </global>    
+	<default>
+        <carriers>
+            <doortodoor>
+                <active>1</active>
+                <model>doortodoor/carrier_doortodoor</model>
+                <name>DoorToDoor</name>
+                <title>Door to Door Shipping</title>
+                <description>Shipment module, with development of some attributes and calculations to get correct price on shipment door to door</description>
+                <sort_order>1</sort_order>
+            </doortodoor>
+        </carriers>
+    </default>
+</config> 
